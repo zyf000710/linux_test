@@ -1,0 +1,14 @@
+[Unit]
+Description=epoll daemon
+
+[Service]
+Type=simple
+ExecStartPre=/root/linux_test/scripts/start.sh %i
+ExecStart=/root/linux_test/main.out
+ExecReload=/bin/kill -s HUP $MAINPID
+ExecStop=/bin/kill -s QUIT $MAINPID
+WatchdogSec=10s
+TimeoutStartSec=5s
+
+[Install]
+WanteeBy=multi-user.target
